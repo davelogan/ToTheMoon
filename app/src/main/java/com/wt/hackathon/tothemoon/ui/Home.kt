@@ -16,8 +16,13 @@
 
 package com.wt.hackathon.tothemoon.ui
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.tooling.preview.Preview
 import com.wt.hackathon.tothemoon.ui.theme.*
 
@@ -25,12 +30,26 @@ import com.wt.hackathon.tothemoon.ui.theme.*
 /**
  * Shows the entire screen.
  */
+@ExperimentalFoundationApi
 @Composable
 fun Home() {
-    Text(text = "To The Moon!")
+//    Text(text = "To The Moon!")
+    val numbers = (1..20).toList()
+
+    LazyVerticalGrid(
+        cells = GridCells.Fixed(4)
+    ) {
+        items(numbers.size) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+//                Text(text = "Number")
+                Text(text = "  $it",)
+            }
+        }
+    }
 }
 
 
+@ExperimentalFoundationApi
 @Preview
 @Composable
 private fun PreviewHome() {
