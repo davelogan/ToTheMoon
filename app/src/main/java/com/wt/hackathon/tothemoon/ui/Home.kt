@@ -17,7 +17,12 @@
 package com.wt.hackathon.tothemoon.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.wt.hackathon.tothemoon.domain.Quiz
 import com.wt.hackathon.tothemoon.ui.theme.ToTheMoonTheme
@@ -29,7 +34,11 @@ import com.wt.hackathon.tothemoon.ui.theme.ToTheMoonTheme
 @ExperimentalFoundationApi
 @Composable
 fun Home() {
-    Captcha(Quiz.q2)
+    Column(
+        Modifier.fillMaxHeight(),
+        verticalArrangement = Arrangement.Center) {
+        Captcha(Quiz.q2)
+    }
 }
 
 

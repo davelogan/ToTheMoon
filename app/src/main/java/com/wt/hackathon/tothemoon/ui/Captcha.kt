@@ -19,12 +19,14 @@ package com.wt.hackathon.tothemoon.ui
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,7 +37,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.wt.hackathon.tothemoon.R
 import com.wt.hackathon.tothemoon.domain.Answer
 import com.wt.hackathon.tothemoon.domain.Question
 import com.wt.hackathon.tothemoon.domain.Quiz
@@ -48,19 +49,29 @@ import com.wt.hackathon.tothemoon.ui.theme.*
 @ExperimentalFoundationApi
 @Composable
 fun Captcha(question: Question.ImageSetQuestion) {
-    Column {
-        Row {
-            Header(question.question)
-        }
-
-        Row {
-            Grid(question.answer.toList())
-        }
-
-        Row(
-            modifier = Modifier.align(Alignment.End)
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(15.dp)
+            .clickable { },
+        elevation = 10.dp
+    ) {
+        Column(
+            modifier = Modifier.padding(4.dp)
         ) {
-            ButtonVerify()
+            Row {
+                Header(question.question)
+            }
+
+            Row {
+                Grid(question.answer.toList())
+            }
+
+            Row(
+                modifier = Modifier.align(Alignment.End)
+            ) {
+                ButtonVerify()
+            }
         }
     }
 }
@@ -76,7 +87,7 @@ fun Header(question: String) {
             .padding(16.dp),
     ) {
         Column {
-            Text(question)
+            Text(question, color = Color.White)
         }
     }
 }
@@ -84,7 +95,7 @@ fun Header(question: String) {
 @ExperimentalFoundationApi
 @Composable
 fun Grid(answers: List<Answer>) {
-    return LazyVerticalGrid(
+    LazyVerticalGrid(
         cells = GridCells.Fixed(3)
     ) {
 
