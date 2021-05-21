@@ -19,13 +19,11 @@ package com.wt.hackathon.tothemoon.ui
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,7 +42,29 @@ import com.wt.hackathon.tothemoon.ui.theme.*
 @ExperimentalFoundationApi
 @Composable
 fun Captcha() {
-    Grid()
+    Column {
+        Row {
+            Header()
+        }
+
+        Row {
+            Grid()
+        }
+    }
+}
+
+@ExperimentalFoundationApi
+@Composable
+fun Header() {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.background(blue100).fillMaxWidth().padding(16.dp),
+    ) {
+        Column {
+            Text("photographer.name")
+            Text("photographer.lastSeenOnline, ...")
+        }
+    }
 }
 
 @ExperimentalFoundationApi
@@ -57,18 +77,17 @@ fun Grid() {
     ) {
         items(numbers.size) {
             Column(
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier.padding(2.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Image(
                     painter = painterResource(R.drawable.ic_launcher_foreground),
                     contentDescription = null,
                     modifier = Modifier
+                        .fillMaxWidth()
                         .height(100.dp)
-                        .width(100.dp)
-                        .background(color = blue100)
                         .clip(shape = RoundedCornerShape(2.dp)),
-                    contentScale = ContentScale.Crop
+                    contentScale = ContentScale.Fit
                 )
             }
         }
