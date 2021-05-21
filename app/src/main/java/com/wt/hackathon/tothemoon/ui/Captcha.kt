@@ -23,11 +23,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,6 +53,12 @@ fun Captcha() {
         Row {
             Grid()
         }
+
+        Row(
+            modifier = Modifier.align(Alignment.End)
+        ) {
+            ButtonVerify()
+        }
     }
 }
 
@@ -58,7 +67,10 @@ fun Captcha() {
 fun Header() {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.background(blue100).fillMaxWidth().padding(16.dp),
+        modifier = Modifier
+            .background(blue100)
+            .fillMaxWidth()
+            .padding(16.dp),
     ) {
         Column {
             Text("photographer.name")
@@ -91,6 +103,20 @@ fun Grid() {
                 )
             }
         }
+    }
+}
+
+@Composable
+fun ButtonVerify() {
+    Button(
+        onClick = { /* Do something! */ },
+        colors = ButtonDefaults.textButtonColors(
+            backgroundColor = blue100,
+            contentColor = Color.White
+        ),
+        modifier = Modifier.padding(16.dp)
+    ) {
+        Text("VERIFY")
     }
 }
 
