@@ -10,7 +10,7 @@ class Quiz {
 
         //Question 2
         val q2 = Question.ImageSetQuestion(2, "Select all Irresponsibly Dressed Humans",
-            arrayOf(
+            listOf(
                 Answer(1, R.drawable.image_part_001, true),
                 Answer(2, R.drawable.image_part_002, false),
                 Answer(3, R.drawable.image_part_003, true),
@@ -19,11 +19,12 @@ class Quiz {
                 Answer(6, R.drawable.image_part_006, false),
                 Answer(7, R.drawable.image_part_007, true),
                 Answer(8, R.drawable.image_part_008, true),
-                Answer(8, R.drawable.image_part_009, true)))
+                Answer(8, R.drawable.image_part_009, true))
+        )
 
         //Question 3
         val q3 = Question.ImageSetQuestion(3, "Select all Irresponsibly Spaced Humans",
-            arrayOf(
+            listOf(
                 Answer(1, R.drawable.q3_a1, true),
                 Answer(2, R.drawable.q3_a2, false),
                 Answer(3, R.drawable.q3_a3, true),
@@ -32,7 +33,8 @@ class Quiz {
                 Answer(6, R.drawable.q3_a6, false),
                 Answer(7, R.drawable.q3_a7, true),
                 Answer(8, R.drawable.q3_a8, true),
-                Answer(8, R.drawable.q3_a9, true)))
+                Answer(8, R.drawable.q3_a9, true))
+        )
 
         //Question 4
         val q4 = Question.YesNoQuestion(4, "Thank you for improving GovLife's Irresponsible Human Discovery Algorithm.\u2028\u2028A few more questions...", true)

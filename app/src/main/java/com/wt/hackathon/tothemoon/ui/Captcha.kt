@@ -16,6 +16,9 @@
 
 package com.wt.hackathon.tothemoon.ui
 
+import android.util.Log
+import android.widget.Toast
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -29,11 +32,15 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -48,12 +55,12 @@ import com.wt.hackathon.tothemoon.ui.theme.*
  */
 @ExperimentalFoundationApi
 @Composable
-fun Captcha(question: Question.ImageSetQuestion) {
+fun Captcha(question: Question.ImageSetQuestion
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(15.dp)
-            .clickable { },
+            .padding(15.dp),
         elevation = 10.dp
     ) {
         Column(
@@ -64,13 +71,13 @@ fun Captcha(question: Question.ImageSetQuestion) {
             }
 
             Row {
-                Grid(question.answer.toList())
+                Grid(question.answer)
             }
 
             Row(
                 modifier = Modifier.align(Alignment.End)
             ) {
-                ButtonVerify()
+                ButtonVerify(question.answer)
             }
         }
     }
@@ -98,17 +105,26 @@ fun Grid(answers: List<Answer>) {
     LazyVerticalGrid(
         cells = GridCells.Fixed(3)
     ) {
-
         items(answers.size) {
+            val isSelected = rememberSaveable { mutableStateOf(false) }
+            val backgroundColor by animateColorAsState(if (isSelected.value) Color.Red else Color.Transparent)
+
             Column(
-                modifier = Modifier.padding(2.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier = Modifier
+                    .padding(2.dp)
+                    .clickable {
+                      answers[it].isChecked = !answers[it].isChecked
+                      isSelected.value = answers[it].isChecked
+                    }
+                    .background(color = backgroundColor),
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Image(
                     painter = painterResource(answers[it].imageResourceId),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxWidth()
+                        .padding(4.dp)
                         .height(100.dp)
                         .clip(shape = RoundedCornerShape(2.dp)),
                     contentScale = ContentScale.FillBounds
@@ -119,9 +135,9 @@ fun Grid(answers: List<Answer>) {
 }
 
 @Composable
-fun ButtonVerify() {
+fun ButtonVerify(answer: List<Answer>) {
     Button(
-        onClick = { /* Do something! */ },
+        onClick = { validateAnswers(answer = answer) },
         colors = ButtonDefaults.textButtonColors(
             backgroundColor = blue100,
             contentColor = Color.White
@@ -129,6 +145,22 @@ fun ButtonVerify() {
         modifier = Modifier.padding(16.dp)
     ) {
         Text("VERIFY")
+    }
+}
+
+private fun validateAnswers(answer: List<Answer>) {
+    var valid = true
+    answer.forEach {
+        if (!it.isCorrect()) {
+            valid = false
+            return@forEach
+        }
+    }
+
+    if (valid) {
+        println("Captcha: It is correct")
+    } else {
+        println("Captcha: You are not a human")
     }
 }
 
