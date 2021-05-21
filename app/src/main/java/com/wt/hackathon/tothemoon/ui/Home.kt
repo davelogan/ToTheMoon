@@ -19,6 +19,7 @@ package com.wt.hackathon.tothemoon.ui
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.wt.hackathon.tothemoon.domain.Quiz
 import com.wt.hackathon.tothemoon.ui.theme.ToTheMoonTheme
 
 
@@ -28,7 +29,7 @@ import com.wt.hackathon.tothemoon.ui.theme.ToTheMoonTheme
 @ExperimentalFoundationApi
 @Composable
 fun Home() {
-    Captcha()
+    Captcha(Quiz.q2)
 }
 
 

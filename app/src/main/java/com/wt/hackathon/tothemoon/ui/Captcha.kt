@@ -36,6 +36,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.wt.hackathon.tothemoon.R
+import com.wt.hackathon.tothemoon.domain.Answer
+import com.wt.hackathon.tothemoon.domain.Question
+import com.wt.hackathon.tothemoon.domain.Quiz
 import com.wt.hackathon.tothemoon.ui.theme.*
 
 
@@ -44,14 +47,14 @@ import com.wt.hackathon.tothemoon.ui.theme.*
  */
 @ExperimentalFoundationApi
 @Composable
-fun Captcha() {
+fun Captcha(question: Question.ImageSetQuestion) {
     Column {
         Row {
-            Header()
+            Header(question.question)
         }
 
         Row {
-            Grid()
+            Grid(question.answer.toList())
         }
 
         Row(
@@ -64,7 +67,7 @@ fun Captcha() {
 
 @ExperimentalFoundationApi
 @Composable
-fun Header() {
+fun Header(question: String) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -73,33 +76,31 @@ fun Header() {
             .padding(16.dp),
     ) {
         Column {
-            Text("photographer.name")
-            Text("photographer.lastSeenOnline, ...")
+            Text(question)
         }
     }
 }
 
 @ExperimentalFoundationApi
 @Composable
-fun Grid() {
-    val numbers = (1..9).toList()
-
+fun Grid(answers: List<Answer>) {
     return LazyVerticalGrid(
         cells = GridCells.Fixed(3)
     ) {
-        items(numbers.size) {
+
+        items(answers.size) {
             Column(
                 modifier = Modifier.padding(2.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Image(
-                    painter = painterResource(R.drawable.ic_launcher_foreground),
+                    painter = painterResource(answers[it].imageResourceId),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(100.dp)
                         .clip(shape = RoundedCornerShape(2.dp)),
-                    contentScale = ContentScale.Fit
+                    contentScale = ContentScale.FillBounds
                 )
             }
         }
@@ -125,6 +126,6 @@ fun ButtonVerify() {
 @Composable
 private fun PreviewHome() {
     ToTheMoonTheme {
-        Captcha()
+        Captcha(Quiz.q2)
     }
 }
