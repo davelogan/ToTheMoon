@@ -16,8 +16,6 @@
 
 package com.wt.hackathon.tothemoon.ui
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -40,7 +38,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -55,7 +52,9 @@ import com.wt.hackathon.tothemoon.ui.theme.*
  */
 @ExperimentalFoundationApi
 @Composable
-fun Captcha(question: Question.ImageSetQuestion
+fun Captcha(
+    question: Question.ImageSetQuestion,
+    onCaptchaResult: (result: Boolean) -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -77,7 +76,10 @@ fun Captcha(question: Question.ImageSetQuestion
             Row(
                 modifier = Modifier.align(Alignment.End)
             ) {
-                ButtonVerify(question.answer)
+                ButtonVerify(
+                    question.answer,
+                    onCaptchaResult
+                )
             }
         }
     }
@@ -113,8 +115,8 @@ fun Grid(answers: List<Answer>) {
                 modifier = Modifier
                     .padding(2.dp)
                     .clickable {
-                      answers[it].isChecked = !answers[it].isChecked
-                      isSelected.value = answers[it].isChecked
+                        answers[it].isChecked = !answers[it].isChecked
+                        isSelected.value = answers[it].isChecked
                     }
                     .background(color = backgroundColor),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -135,9 +137,14 @@ fun Grid(answers: List<Answer>) {
 }
 
 @Composable
-fun ButtonVerify(answer: List<Answer>) {
+fun ButtonVerify(answer: List<Answer>, onCaptchaResult: (result: Boolean) -> Unit) {
     Button(
-        onClick = { validateAnswers(answer = answer) },
+        onClick = {
+            validateAnswers(
+                answer = answer,
+                onCaptchaResult
+            )
+        },
         colors = ButtonDefaults.textButtonColors(
             backgroundColor = blue100,
             contentColor = Color.White
@@ -148,7 +155,7 @@ fun ButtonVerify(answer: List<Answer>) {
     }
 }
 
-private fun validateAnswers(answer: List<Answer>) {
+private fun validateAnswers(answer: List<Answer>, onCaptchaResult: (result: Boolean) -> Unit) {
     var valid = true
     answer.forEach {
         if (!it.isCorrect()) {
@@ -158,9 +165,9 @@ private fun validateAnswers(answer: List<Answer>) {
     }
 
     if (valid) {
-        println("Captcha: It is correct")
+        onCaptchaResult(true)
     } else {
-        println("Captcha: You are not a human")
+        onCaptchaResult(false)
     }
 }
 
@@ -169,6 +176,8 @@ private fun validateAnswers(answer: List<Answer>) {
 @Composable
 private fun PreviewHome() {
     ToTheMoonTheme {
-        Captcha(Quiz.q2)
+        Captcha(Quiz.q2) {
+
+        }
     }
 }

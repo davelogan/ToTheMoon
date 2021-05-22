@@ -17,59 +17,51 @@
 package com.wt.hackathon.tothemoon.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
+import androidx.compose.material.Snackbar
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.wt.hackathon.tothemoon.domain.Quiz
-import com.wt.hackathon.tothemoon.ui.theme.ToTheMoonTheme
+import com.wt.hackathon.tothemoon.ui.theme.*
 
 
 /**
  * Shows the entire screen.
  */
-
-@ExperimentalFoundationApi
 @Composable
-fun Home() {
-    val showDialog = remember { mutableStateOf(false) }
-    if (showDialog.value) {
-        ShowCaptchaError(showDialog.value)
-    }
+fun Error(
+    message: String,
+    showDialog: Boolean
+) {
+    if (showDialog) {
+        Column {
+            Snackbar(
+                action = {
+                    Button(onClick = {
 
-    Column(
-        Modifier.fillMaxHeight(),
-        verticalArrangement = Arrangement.Center) {
-        Captcha(Quiz.q2) { result ->
-            if (result) {
-                showDialog.value = false
-                goToNextView()
-            } else {
-                showDialog.value = true
-            }
+                    }) {
+                        Text("MyAction")
+                    }
+                },
+                modifier = Modifier.padding(8.dp)
+            ) { Text(text = message) }
         }
     }
-}
-
-private fun goToNextView() {
-    // TODO NOT IMPLEMENTED
-}
-
-@Composable
-private fun ShowCaptchaError(showDialog: Boolean) {
-    Error(message = "You are not a human", showDialog = showDialog)
 }
 
 @ExperimentalFoundationApi
 @Preview
 @Composable
 private fun PreviewHome() {
-    ToTheMoonTheme() {
-        Home()
+    ToTheMoonTheme {
+        Captcha(Quiz.q2) {
+
+        }
     }
 }
