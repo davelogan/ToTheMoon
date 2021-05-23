@@ -1,7 +1,10 @@
 package com.wt.hackathon.tothemoon.domain
 
-
 sealed class Question {
-    class YesNoQuestion(val id: Int, val question: String, val  correctAnswer: Boolean): Question()
-    class ImageSetQuestion(val id: Int, val question: String, val answer: List<Answer>): Question()
+    abstract val id: Int
+    abstract val question: String
 }
+
+data class YesNoQuestion(override val id: Int, override val question: String, val correctAnswer: Boolean): Question()
+data class ImageSetQuestion(override val id: Int, override val question: String, val answers: List<Answer>): Question()
+

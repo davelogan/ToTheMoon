@@ -42,7 +42,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.wt.hackathon.tothemoon.domain.Answer
-import com.wt.hackathon.tothemoon.domain.Question
+import com.wt.hackathon.tothemoon.domain.ImageSetQuestion
 import com.wt.hackathon.tothemoon.domain.Quiz
 import com.wt.hackathon.tothemoon.ui.theme.*
 
@@ -53,7 +53,7 @@ import com.wt.hackathon.tothemoon.ui.theme.*
 @ExperimentalFoundationApi
 @Composable
 fun Captcha(
-    question: Question.ImageSetQuestion,
+    question: ImageSetQuestion,
     onCaptchaResult: (result: Boolean) -> Unit
 ) {
     Card(
@@ -70,14 +70,14 @@ fun Captcha(
             }
 
             Row {
-                Grid(question.answer)
+                Grid(question.answers)
             }
 
             Row(
                 modifier = Modifier.align(Alignment.End)
             ) {
                 ButtonVerify(
-                    question.answer,
+                    question.answers,
                     onCaptchaResult
                 )
             }
