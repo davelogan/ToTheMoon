@@ -18,10 +18,14 @@
         <entry key="../../../../../layout/compose-model-1621583598039.xml" value="0.1" />
         <entry key="../../../../../layout/compose-model-1621621374729.xml" value="0.12685185185185185" />
         <entry key="app/src/main/res/drawable/ic_recaptchalogo.xml" value="0.22395833333333334" />
+        <entry key="../../../../../layout/compose-model-1621711984279.xml" value="0.335" />
+        <entry key="../../../../../layout/compose-model-1621716260199.xml" value="0.1" />
+        <entry key="../../../../../layout/compose-model-1621723873923.xml" value="0.1" />
+        <entry key="../../../../../layout/compose-model-1621730847725.xml" value="0.1" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
