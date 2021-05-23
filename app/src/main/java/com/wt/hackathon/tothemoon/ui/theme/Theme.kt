@@ -6,15 +6,11 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun ToTheMoonTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
-    }
 
     MaterialTheme(
-        colors = colors,
-        typography = Typography,
+        //colors = if (darkTheme) DarkColorPalette else LightColorPalette,
+        colors = DarkColorPalette,
+        typography = JetnewsTypography,
         shapes = Shapes,
         content = content
     )

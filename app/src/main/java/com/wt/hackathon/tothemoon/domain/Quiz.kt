@@ -11,29 +11,29 @@ class Quiz {
         //Question 2
         val q2 = ImageSetQuestion(2, "Select all parts of the face that should be covered.",
             listOf(
-                Answer(1, R.drawable.image_part_001, true),
+                Answer(1, R.drawable.image_part_001, false),
                 Answer(2, R.drawable.image_part_002, false),
-                Answer(3, R.drawable.image_part_003, true),
-                Answer(4, R.drawable.image_part_004, true),
+                Answer(3, R.drawable.image_part_003, false),
+                Answer(4, R.drawable.image_part_004, false),
                 Answer(5, R.drawable.image_part_005, true),
                 Answer(6, R.drawable.image_part_006, false),
-                Answer(7, R.drawable.image_part_007, true),
+                Answer(7, R.drawable.image_part_007, false),
                 Answer(8, R.drawable.image_part_008, true),
-                Answer(8, R.drawable.image_part_009, true))
+                Answer(9, R.drawable.image_part_009, true))
         )
 
         //Question 3
         val q3 = ImageSetQuestion(3, "Select all Irresponsibly Masked Humans",
             listOf(
-                Answer(1, R.drawable.face_1, true),
-                Answer(2, R.drawable.face_2, false),
-                Answer(3, R.drawable.face_3, true),
+                Answer(1, R.drawable.face_1, false),
+                Answer(2, R.drawable.face_2, true),
+                Answer(3, R.drawable.face_3, false),
                 Answer(4, R.drawable.face_4, true),
                 Answer(5, R.drawable.face_5, true),
                 Answer(6, R.drawable.face_6, false),
                 Answer(7, R.drawable.face_7, true),
-                Answer(8, R.drawable.face_8, true),
-                Answer(8, R.drawable.face_9, true))
+                Answer(8, R.drawable.face_8, false),
+                Answer(9, R.drawable.face_9, false))
         )
 
         //Question 4

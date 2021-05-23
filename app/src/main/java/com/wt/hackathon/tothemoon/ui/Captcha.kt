@@ -25,10 +25,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Card
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -56,32 +53,37 @@ fun Captcha(
     question: ImageSetQuestion,
     onCaptchaResult: (result: Boolean) -> Unit
 ) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(15.dp),
-        elevation = 10.dp
-    ) {
-        Column(
-            modifier = Modifier.padding(4.dp)
-        ) {
-            Row {
-                Header(question.question)
-            }
-
-            Row {
-                Grid(question.answers)
-            }
-
-            Row(
-                modifier = Modifier.align(Alignment.End)
+    ToTheMoonTheme {
+        Surface() {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(15.dp),
+                elevation = 10.dp
             ) {
-                ButtonVerify(
-                    question.answers,
-                    onCaptchaResult
-                )
+                Column(
+                    modifier = Modifier.padding(4.dp)
+                ) {
+                    Row {
+                        Header(question.question)
+                    }
+
+                    Row {
+                        Grid(question.answers)
+                    }
+
+                    Row(
+                        modifier = Modifier.align(Alignment.End)
+                    ) {
+                        ButtonVerify(
+                            question.answers,
+                            onCaptchaResult
+                        )
+                    }
+                }
             }
         }
+
     }
 }
 
@@ -96,7 +98,7 @@ fun Header(question: String) {
             .padding(16.dp),
     ) {
         Column {
-            Text(question, color = Color.White)
+            Text(question)
         }
     }
 }
@@ -145,10 +147,6 @@ fun ButtonVerify(answer: List<Answer>, onCaptchaResult: (result: Boolean) -> Uni
                 onCaptchaResult
             )
         },
-        colors = ButtonDefaults.textButtonColors(
-            backgroundColor = blue100,
-            contentColor = Color.White
-        ),
         modifier = Modifier.padding(16.dp)
     ) {
         Text("VERIFY")

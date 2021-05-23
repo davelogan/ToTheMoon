@@ -6,8 +6,7 @@ import androidx.compose.runtime.Composable
  * Screen metadata for Quiz.
  */
 class QuestionScreen(
-    val body: @Composable () -> Unit,
-    val onFinished: (Boolean) -> Unit
+    val body: @Composable () -> Unit
 ) {
 
     @Composable

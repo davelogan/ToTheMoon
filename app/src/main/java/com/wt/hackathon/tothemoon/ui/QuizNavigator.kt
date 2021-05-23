@@ -19,9 +19,13 @@ package com.wt.hackathon.tothemoon.ui
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -34,60 +38,68 @@ import com.wt.hackathon.tothemoon.ui.theme.ToTheMoonTheme
 @Composable
 fun ShowQuiz(allQuestions: List<Question>) {
     ToTheMoonTheme {
-        Surface(color = MaterialTheme.colors.background) {
-            var visibleIndex = remember { mutableStateOf(0) }
+        Surface {
+            val visibleIndex = remember { mutableStateOf(0) }
+            val indexAfterError = remember { mutableStateOf(0) }
+            val showError = remember { mutableStateOf(false) }
             val screens = remember { mutableListOf<QuestionScreen>() }
-            val screenVisibility = remember { mutableStateListOf<ScreenVisibilityState>() }
 
             allQuestions.forEachIndexed { i, question ->
                 val screen = createQuestionScreen(i,
-                    {
-                        visibleIndex.value = it
-                        val lastIndex = it - 1
-                        if (screenVisibility.size > lastIndex) {
-                            screenVisibility[lastIndex].isVisible = false
+                    { visibleScreenIndex: Int, isCorrect: Boolean ->
+                        if (isCorrect) {
+                            if (visibleScreenIndex < allQuestions.size) {
+                                visibleIndex.value = visibleScreenIndex + 1
+                            }
+                        } else {
+                            indexAfterError.value = visibleIndex.value
+                            visibleIndex.value = -1
+                            showError.value = true
                         }
-                        screenVisibility[it].isVisible = true
                     },
                     question)
                 screens.add(screen)
-
-                screenVisibility.add(ScreenVisibilityState(i == 0))
-                ShowScreen(i, visibleIndex, screen)
+                QuestionScreenWrapper(i, visibleIndex, screen)
+                ErrorScreen(showError) {
+                    showError.value = false
+                    visibleIndex.value = indexAfterError.value
+                }
             }
         }
     }
 }
 
-class ScreenVisibilityState(var isVisible: Boolean)
-
 @ExperimentalFoundationApi
 @Composable
-fun createQuestionScreen(index: Int, onNextScreen: (Int) -> Unit,
-                         question: Question) : QuestionScreen {
+fun createQuestionScreen(
+    index: Int, onNextScreen: (Int, Boolean) -> Unit,
+    question: Question
+): QuestionScreen {
 
-    val screen = when (question) {
+    return when (question) {
         is YesNoQuestion -> {
             QuestionScreen(body = {
                 YesNoQuestionStub(question = question) {
-                    onNextScreen(index + 1)
+                    onNextScreen(index, it)
                 }
-            }, {  })
+            })
         }
         is ImageSetQuestion -> {
             QuestionScreen(
-                body = { Captcha(question = question) {
-                    onNextScreen(index + 1)
-                }
-                }, {  })
+                body = {
+                    Captcha(question = question) {
+                        onNextScreen(index, it)
+                    }
+                })
         }
     }
-    return screen
 }
+
+
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-private fun ShowScreen(index: Int, indexVisible: MutableState<Int>, questionScreen: QuestionScreen?) {
+private fun QuestionScreenWrapper(index: Int, indexVisible: MutableState<Int>, questionScreen: QuestionScreen?) {
 
     AnimatedVisibility(
         visible = index == indexVisible.value

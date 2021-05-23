@@ -42,16 +42,21 @@ val grey700 = Color(0xFF2F2F30)
 val black900 = Color(0x00000000)
 
 val DarkColorPalette = darkColors(
-    primary = purple200,
-    primaryVariant = purple700,
-    secondary = teal200
+    primary = yellow700,
+    primaryVariant = Color.Black,
+    onPrimary = Color.Black,
+    secondary = red300,
+    onSecondary = Color.Black,
+    error = red200
 )
 
-val LightColorPalette = lightColors(
-    primary = purple500,
-    primaryVariant = purple700,
-    secondary = teal200
 
+val LightColorPalette = lightColors(
+    primary = Color.Black,
+    primaryVariant = Color.Black,
+    secondary = yellow700,
+    background = Color.Black,
+    surface = Color.Black,
     /* Other default colors to override
     background = Color.White,
     surface = Color.White,
