@@ -9,7 +9,7 @@ class Quiz {
         val q1 = YesNoQuestion(1, "Request Permission to Reenter Society", true)
 
         //Question 2
-        val q2 = ImageSetQuestion(2, "Select all Irresponsibly Dressed Humans",
+        val q2 = ImageSetQuestion(2, "Select all parts of the face that should be covered.",
             listOf(
                 Answer(1, R.drawable.image_part_001, true),
                 Answer(2, R.drawable.image_part_002, false),
@@ -23,17 +23,17 @@ class Quiz {
         )
 
         //Question 3
-        val q3 = ImageSetQuestion(3, "Select all Irresponsibly Spaced Humans",
+        val q3 = ImageSetQuestion(3, "Select all Irresponsibly Masked Humans",
             listOf(
-                Answer(1, R.drawable.q3_a1, true),
-                Answer(2, R.drawable.q3_a2, false),
-                Answer(3, R.drawable.q3_a3, true),
-                Answer(4, R.drawable.q3_a4, true),
-                Answer(5, R.drawable.q3_a5, true),
-                Answer(6, R.drawable.q3_a6, false),
-                Answer(7, R.drawable.q3_a7, true),
-                Answer(8, R.drawable.q3_a8, true),
-                Answer(8, R.drawable.q3_a9, true))
+                Answer(1, R.drawable.face_1, true),
+                Answer(2, R.drawable.face_2, false),
+                Answer(3, R.drawable.face_3, true),
+                Answer(4, R.drawable.face_4, true),
+                Answer(5, R.drawable.face_5, true),
+                Answer(6, R.drawable.face_6, false),
+                Answer(7, R.drawable.face_7, true),
+                Answer(8, R.drawable.face_8, true),
+                Answer(8, R.drawable.face_9, true))
         )
 
         //Question 4

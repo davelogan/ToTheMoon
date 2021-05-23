@@ -27,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -54,6 +55,7 @@ fun EntryScreen(
 //    question: Question.ImageSetQuestion,
 //    onCaptchaResult: (result: Boolean) -> Unit
 ) {
+    var didRequest by rememberSaveable { mutableStateOf("") }
     Column(
         modifier = Modifier.fillMaxWidth().fillMaxHeight(),
         verticalArrangement = Arrangement.Center,
