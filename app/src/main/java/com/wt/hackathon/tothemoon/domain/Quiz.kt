@@ -6,7 +6,9 @@ class Quiz {
     companion object {
 
         //Question 1
-        val q1 = YesNoQuestion(1, "Request Permission to Reenter Society", true)
+        val q1 = YesNoQuestion(1, "Request permission to re-enter society", "Continue", null, true)
+
+        val q1a = SimpleCaptcha(10, "Rebel Captcha")
 
         //Question 2
         val q2 = ImageSetQuestion(2, "Select all parts of the face that should be covered.",
@@ -37,17 +39,20 @@ class Quiz {
         )
 
         //Question 4
-        val q4 = YesNoQuestion(4, "Thank you for improving GovLife's Irresponsible Human Discovery Algorithm.\u2028\u2028A few more questions...", true)
+        val q4 = YesNoQuestion(4, "Thank you for improving our Irresponsible Human Discovery Algorithm.", "Continue", null, true)
 
 
         //Question 5
-        val q5 = YesNoQuestion(4, "Are you vaccinated?\u2028Yes / No\u2028", true)
+        val q5 = YesNoQuestion(5, "Are you fully vaccinated?", "Yes", "No", true)
 
         //Question 6
-        val q6 = YesNoQuestion(4, "You are free to reenter society.\u2028\u2028Please wear pants.", true)
+        val q6 = YesNoQuestion(6, "Activate microchip to continue.", "Activate", null, true)
+
+        //Question 7
+        val q7 = YesNoQuestion(7, "Thank you for your cooperation. You are free to reenter society.", null, null, true)
 
 
-        val allQuestions = listOf(q1, q2, q3, q4, q5, q6)
+        val allQuestions = listOf(q1, q1a, q2, q3, q4, q5, q6, q7)
 
     }
 }

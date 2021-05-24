@@ -55,35 +55,40 @@ fun Captcha(
 ) {
     ToTheMoonTheme {
         Surface() {
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(15.dp),
-                elevation = 10.dp
+            Column(
+                modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Column(
-                    modifier = Modifier.padding(4.dp)
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(15.dp),
+                    elevation = 10.dp
                 ) {
-                    Row {
-                        Header(question.question)
-                    }
-
-                    Row {
-                        Grid(question.answers)
-                    }
-
-                    Row(
-                        modifier = Modifier.align(Alignment.End)
+                    Column(
+                        modifier = Modifier.padding(4.dp)
                     ) {
-                        ButtonVerify(
-                            question.answers,
-                            onCaptchaResult
-                        )
+                        Row {
+                            Header(question.question)
+                        }
+
+                        Row {
+                            Grid(question.answers)
+                        }
+
+                        Row(
+                            modifier = Modifier.align(Alignment.End)
+                        ) {
+                            ButtonVerify(
+                                question.answers,
+                                onCaptchaResult
+                            )
+                        }
                     }
                 }
             }
         }
-
     }
 }
 

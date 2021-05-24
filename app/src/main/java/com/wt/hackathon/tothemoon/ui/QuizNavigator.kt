@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.wt.hackathon.tothemoon.domain.ImageSetQuestion
 import com.wt.hackathon.tothemoon.domain.Question
+import com.wt.hackathon.tothemoon.domain.SimpleCaptcha
 import com.wt.hackathon.tothemoon.domain.YesNoQuestion
 import com.wt.hackathon.tothemoon.ui.theme.ToTheMoonTheme
 
@@ -91,6 +92,15 @@ fun createQuestionScreen(
                         onNextScreen(index, it)
                     }
                 })
+        }
+        is SimpleCaptcha -> {
+            QuestionScreen(
+                body = {
+                    MiniCaptchaScreen(question = question) {
+                        onNextScreen(index, it)
+                    }
+                }
+            )
         }
     }
 }
