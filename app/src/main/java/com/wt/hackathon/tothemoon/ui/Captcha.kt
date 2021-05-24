@@ -26,9 +26,7 @@ import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,6 +52,8 @@ fun Captcha(
     onCaptchaResult: (result: Boolean) -> Unit
 ) {
     ToTheMoonTheme {
+        val answers = remember { mutableStateOf(question.answers) }
+
         Surface() {
             Column(
                 modifier = Modifier.fillMaxWidth().fillMaxHeight(),
@@ -74,14 +74,14 @@ fun Captcha(
                         }
 
                         Row {
-                            Grid(question.answers)
+                            Grid(answers)
                         }
 
                         Row(
                             modifier = Modifier.align(Alignment.End)
                         ) {
                             ButtonVerify(
-                                question.answers,
+                                answers,
                                 onCaptchaResult
                             )
                         }
@@ -110,26 +110,25 @@ fun Header(question: String) {
 
 @ExperimentalFoundationApi
 @Composable
-fun Grid(answers: List<Answer>) {
+fun Grid(answers: MutableState<List<Answer>>) {
     LazyVerticalGrid(
         cells = GridCells.Fixed(3)
     ) {
-        items(answers.size) {
-            val isSelected = rememberSaveable { mutableStateOf(false) }
-            val backgroundColor by animateColorAsState(if (isSelected.value) Color.Red else Color.Transparent)
-
+        items(answers.value.size) {
+            val isChecked = remember { mutableStateOf(answers.value[it].isChecked) }
+            val backgroundColor by animateColorAsState(if (isChecked.value) Color.Red else Color.Transparent)
             Column(
                 modifier = Modifier
                     .padding(2.dp)
                     .clickable {
-                        answers[it].isChecked = !answers[it].isChecked
-                        isSelected.value = answers[it].isChecked
+                        answers.value[it].isChecked = !answers.value[it].isChecked
+                        isChecked.value = answers.value[it].isChecked
                     }
                     .background(color = backgroundColor),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Image(
-                    painter = painterResource(answers[it].imageResourceId),
+                    painter = painterResource(answers.value[it].imageResourceId),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -144,11 +143,11 @@ fun Grid(answers: List<Answer>) {
 }
 
 @Composable
-fun ButtonVerify(answer: List<Answer>, onCaptchaResult: (result: Boolean) -> Unit) {
+fun ButtonVerify(answers: MutableState<List<Answer>>, onCaptchaResult: (result: Boolean) -> Unit) {
     Button(
         onClick = {
             validateAnswers(
-                answer = answer,
+                answers = answers,
                 onCaptchaResult
             )
         },
@@ -158,9 +157,9 @@ fun ButtonVerify(answer: List<Answer>, onCaptchaResult: (result: Boolean) -> Uni
     }
 }
 
-private fun validateAnswers(answer: List<Answer>, onCaptchaResult: (result: Boolean) -> Unit) {
+private fun validateAnswers(answers: MutableState<List<Answer>>, onCaptchaResult: (result: Boolean) -> Unit) {
     var valid = true
-    answer.forEach {
+    answers.value.forEach {
         if (!it.isCorrect()) {
             valid = false
             return@forEach
